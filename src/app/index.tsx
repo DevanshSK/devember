@@ -1,6 +1,10 @@
 import { StatusBar } from 'expo-status-bar';
-import { FlatList, StyleSheet, Text, View, SafeAreaView, ActivityIndicator } from 'react-native';
-import DayListItem from './src/components/core/DayListItem';
+import { 
+    FlatList, 
+    StyleSheet, 
+    SafeAreaView
+} from 'react-native';
+import DayListItem from '@components/core/DayListItem';
 
 // Font imports
 import { useFonts, Inter_900Black } from '@expo-google-fonts/inter';
