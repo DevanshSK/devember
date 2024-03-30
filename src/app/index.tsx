@@ -20,7 +20,7 @@ SplashScreen.preventAutoHideAsync();
 // Dynamic data for out mini projects.
 const days = [...Array(24)].map((val, index) => index + 1);
 
-export default function App() {
+export default function HomeScreen() {
   const [fontsLoaded, fontError] = useFonts({
     InterBlack: Inter_900Black,
     Amatic: AmaticSC_400Regular,
