@@ -5,10 +5,11 @@ import { Stack, router } from 'expo-router'
 // Fonts Import
 import { FontAwesome5 } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { StatusBar } from 'expo-status-bar';
 
 const onboardingSteps = [
     {
-        title: "Welcome #Devember",
+        title: "Welcome #ADD",
         description: "Daily React Native tutorials during inside this app.",
         icon: "snowflake"
     },
@@ -50,8 +51,17 @@ const OnboardingScreen = () => {
                     headerShown: false
                 }}
             />
+            <StatusBar style='light' animated />
 
             <View style={styles.pageContent}>
+                <View style={styles.stepIndicatorContainer}>
+                    {onboardingSteps.map((_, index) => (
+                        <View key={index} style={[styles.stepIndicator, { backgroundColor: index === screenIndex ? "#cef202" : "gray", }]} />
+                    ))}
+
+
+                </View>
+
                 <FontAwesome5
                     style={styles.image}
                     name={data.icon}
@@ -129,5 +139,16 @@ const styles = StyleSheet.create({
         fontSize: 16,
         padding: 15,
         paddingHorizontal: 25
+    },
+    stepIndicatorContainer: {
+        marginHorizontal: 15,
+        display: "flex",
+        flexDirection: "row",
+        gap: 5
+    },
+    stepIndicator: {
+        height: 2,
+        borderRadius: 10,
+        flex: 1
     }
 })
