@@ -7,6 +7,9 @@ import { FontAwesome5 } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
 
+// Gesture Import
+import { Directions, Gesture, GestureDetector } from 'react-native-gesture-handler';
+
 const onboardingSteps = [
     {
         title: "Welcome #ADD",
@@ -44,6 +47,14 @@ const OnboardingScreen = () => {
         router.back();
     }
 
+    const fling = Gesture.Fling()
+        .direction(Directions.RIGHT | Directions.LEFT)
+        .onEnd((event) => {
+            console.log("FLING", event);
+            onContinue();
+        }
+    );
+
     return (
         <SafeAreaView style={styles.page}>
             <Stack.Screen
@@ -53,35 +64,38 @@ const OnboardingScreen = () => {
             />
             <StatusBar style='light' animated />
 
-            <View style={styles.pageContent}>
-                <View style={styles.stepIndicatorContainer}>
-                    {onboardingSteps.map((_, index) => (
-                        <View key={index} style={[styles.stepIndicator, { backgroundColor: index === screenIndex ? "#cef202" : "gray", }]} />
-                    ))}
+            <GestureDetector gesture={fling} >
+
+                <View style={styles.pageContent}>
+                    <View style={styles.stepIndicatorContainer}>
+                        {onboardingSteps.map((_, index) => (
+                            <View key={index} style={[styles.stepIndicator, { backgroundColor: index === screenIndex ? "#cef202" : "gray", }]} />
+                        ))}
 
 
-                </View>
+                    </View>
 
-                <FontAwesome5
-                    style={styles.image}
-                    name={data.icon}
-                    size={200}
-                    color="#ffda11"
-                />
-                <View style={styles.footer}>
-                    <Text style={styles.title}>{data.title}</Text>
-                    <Text style={styles.description}>{data.description}</Text>
+                    <FontAwesome5
+                        style={styles.image}
+                        name={data.icon}
+                        size={200}
+                        color="#ffda11"
+                    />
+                    <View style={styles.footer}>
+                        <Text style={styles.title}>{data.title}</Text>
+                        <Text style={styles.description}>{data.description}</Text>
 
-                    <View style={styles.buttonRow}>
+                        <View style={styles.buttonRow}>
 
-                        <Text onPress={endOnboarding} style={styles.buttonText}>Skip</Text>
+                            <Text onPress={endOnboarding} style={styles.buttonText}>Skip</Text>
 
-                        <Pressable onPress={onContinue} style={styles.button}>
-                            <Text style={styles.buttonText}>Continue</Text>
-                        </Pressable>
+                            <Pressable onPress={onContinue} style={styles.button}>
+                                <Text style={styles.buttonText}>Continue</Text>
+                            </Pressable>
+                        </View>
                     </View>
                 </View>
-            </View>
+            </GestureDetector>
         </SafeAreaView>
     )
 }
